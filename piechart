@@ -1,0 +1,184 @@
+{
+   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+   "background": null,
+   "data": {
+      "url": "https://raw.githubusercontent.com/trblshootr/vega-lite/main/4x4.json",
+      "format": {
+         "property": "aggregations.by_positivity.buckets"
+      }
+   },
+   "transform": [
+      {
+         "filter": "datum.doc_count > 0"
+      },
+      {
+         "calculate": "datum.key + ' - ' + datum.doc_count",
+         "as": "legend_label"
+      },
+      {
+         "calculate": "datum.key === 'unactionable_true_positive' ? 1 : datum.key === 'false_positive' ",
+         "as": "positivity_order"
+      }
+   ],
+   "vconcat": [
+      {
+         "layer": [
+            {
+               "mark": {
+                  "type": "circle",
+                  "width": 10,
+                  "height": 10,
+                  "cornerRadius": 2,
+                  "xOffset": 105,
+                  "yOffset": 25,
+                  "opacity": 1,
+                  "size": 65
+               },
+               "encoding": {
+                  "y": {
+                     "field": "legend_label",
+                     "type": "ordinal",
+                     "title": "Alert Positivity",
+                     "axis": {
+                        "titleColor": "black",
+                        "titleFontSize": 14,
+                        "titleAngle": 0,
+                        "titleX": 20,
+                        "titleY": 20,
+                        "labelFontSize": 12,
+                        "labelPadding": 8,
+                        "labelAlign": "left",
+                        "labelOffset": 25,
+                        "labelColor": "black",
+                        "offset": -135,
+                        "ticks": false,
+                        "grid": false,
+                        "domain": false
+                     },
+                     "sort": {
+                        "field": "positivity_order",
+                        "order": "ascending"
+                     }
+                  },
+                  "color": {
+                     "field": "key",
+                     "type": "nominal",
+                     "scale": {
+                        "domain": [
+                           "unactionable_true_positive",
+                           "false_positive"
+                        ],
+                        "range": [
+                           "#f04826",
+                           "#da8b45"
+                        ]
+                     }
+                  }
+               }
+            },
+            {
+               "mark": {
+                  "type": "arc",
+                  "radius": 58,
+                  "radius2": 80,
+                  "cornerRadius": 5,
+                  "padAngle": 0.05,
+                  "xOffset": 0,
+                  "yOffset": 35
+               },
+               "encoding": {
+                  "theta": {
+                     "field": "doc_count",
+                     "type": "quantitative",
+                     "title": "Count"
+                  },
+                  "color": {
+                     "field": "key",
+                     "type": "nominal",
+                     "scale": {
+                        "domain": [
+                           "unactionable_true_positive",
+                           "false_positive"
+                        ],
+                        "range": [
+                           "#f04826",
+                           "#da8b45"
+                        ]
+                     },
+                     "legend": null
+                  },
+                  "tooltip": [
+                     {
+                        "field": "key",
+                        "type": "nominal",
+                        "title": "positivity"
+                     },
+                     {
+                        "field": "doc_count",
+                        "type": "quantitative",
+                        "title": "count"
+                     }
+                  ]
+               }
+            },
+            {
+               "transform": [
+                  {
+                     "aggregate": [
+                        {
+                           "op": "sum",
+                           "field": "doc_count",
+                           "as": "total_count"
+                        }
+                     ]
+                  }
+               ],
+               "layer": [
+                  {
+                     "mark": {
+                        "type": "text",
+                        "align": "center",
+                        "baseline": "middle",
+                        "dy": -10,
+                        "fontSize": 18,
+                        "fontWeight": "bold",
+                        "fill": "black",
+                        "xOffset": 0,
+                        "yOffset": 35
+                     },
+                     "encoding": {
+                        "text": {
+                           "field": "total_count",
+                           "type": "quantitative"
+                        }
+                     }
+                  },
+                  {
+                     "mark": {
+                        "type": "text",
+                        "align": "center",
+                        "baseline": "middle",
+                        "dy": 10,
+                        "fontSize": 14,
+                        "fontWeight": "normal",
+                        "fill": "black",
+                        "xOffset": 0,
+                        "yOffset": 35
+                     },
+                     "encoding": {
+                        "text": {
+                           "value": "alerts"
+                        }
+                     }
+                  }
+               ]
+            }
+         ]
+      }
+   ],
+   "config": {
+      "view": {
+         "stroke": null
+      }
+   }
+}
