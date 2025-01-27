@@ -1,0 +1,22 @@
+{
+  "aggregations": {
+    "by_positivity": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "actionable true positive",
+          "doc_count": 0
+        },
+        {
+          "key": "unactionable true postive",
+          "doc_count": 9
+        },
+        {
+          "key": "false postive",
+          "doc_count": 26
+        }
+      ]
+    }
+  }
+}
