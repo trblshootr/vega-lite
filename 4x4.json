@@ -1,4 +1,20 @@
 {
+  "took": 9,
+  "timed_out": false,
+  "_shards": {
+    "total": 34,
+    "successful": 34,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 3335,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  },
   "aggregations": {
     "by_positivity": {
       "doc_count_error_upper_bound": 0,
