@@ -21,15 +21,11 @@
       "sum_other_doc_count": 0,
       "buckets": [
         {
-          "key": "actionable true positive",
-          "doc_count": 0
-        },
-        {
-          "key": "unactionable true postive",
+          "key": "unactionable_true_postive",
           "doc_count": 9
         },
         {
-          "key": "false postive",
+          "key": "false_postive",
           "doc_count": 26
         }
       ]
